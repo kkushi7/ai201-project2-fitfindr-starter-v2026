@@ -93,14 +93,14 @@
      The grader checks your code against what you claim here, so the file and
      function have to be real. -->
 
-**Branch rule:**
+**Branch rule:** "If search_listings returns an empty list, set session["error"] to a message suggesting the user change their description, size, or price, then return without calling the other tools. Otherwise, save the first result as session["selected_item"], pass it to suggest_outfit, then pass the outfit and item to create_fit_card."
 
 **Where it lives:** `agent.py::run_agent`
 
-**How the query is parsed:** <!-- regex, string splitting, or asking the model — say which -->
+**How the query is parsed:** <!-- regex, string splitting, or asking the model — say which --> I use regular expressions to extract the size and maximum price; the remaining query text becomes the listing description.
 
 **What moves through the session:** <!-- which fields, in what order -->
-
+query → parsed description, size, and max_price in parsed → results in search_results → first result in selected_item → suggestion in outfit_suggestion → caption in fit_card. If there are no results, error is set and the loop returns before creating an outfit or fit card.
 ---
 
 ## Sample Run
