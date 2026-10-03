@@ -106,10 +106,10 @@ def run_agent(query: str, wardrobe: dict) -> dict:
         than a stack trace. The import is already at the top of this file.
     """
     session = new_session(query, wardrobe)
-
+    count = 0
+    trace.check_iterations(count)
     # TODO: delete these two lines and build the loop.
-    session["error"] = "The planning loop isn't built yet — see the TODO in agent.py."
-    return session
+    pass
 
 
 # ── running it directly ───────────────────────────────────────────────────────
@@ -117,11 +117,13 @@ def run_agent(query: str, wardrobe: dict) -> dict:
 def _show(session: dict) -> None:
     if session["error"]:
         print(f"  stopped: {session['error']}")
-        print(f"  fit_card is {session['fit_card']!r} — it should still be None here")
+        print(
+            f"  fit_card is {session['fit_card']!r} — it should still be None here")
         return
 
     item = session["selected_item"] or {}
-    print(f"  found:    {item.get('title')} — ${item.get('price')} on {item.get('platform')}")
+    print(
+        f"  found:    {item.get('title')} — ${item.get('price')} on {item.get('platform')}")
     print(f"  outfit:   {session['outfit_suggestion']}")
     print(f"  fit card: {session['fit_card']}")
 

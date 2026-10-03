@@ -79,6 +79,7 @@ def search_listings(
         python -c "from tools import search_listings; print(search_listings('graphic tee', max_price=30))"
     """
     # TODO: replace this with your implementation
+    listings = load_listings
     return []
 
 
