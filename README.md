@@ -40,8 +40,7 @@
 ## What This Does
 
 <!-- Three or four sentences: what a user asks for, and what they get back. -->
-
-
+FitFindr helps users find thrifted clothing by searching listings with a description, size, and maximum price. It selects the highest ranked match and recommends outfits using items from the user’s wardrobe. It also creates a short caption for the find that user's could post. If nothing matches, it tells the user which search details to change and stops without generating an outfit or caption.
 
 ---
 
@@ -100,7 +99,7 @@
 **How the query is parsed:** <!-- regex, string splitting, or asking the model — say which --> I use regular expressions to extract the size and maximum price; the remaining query text becomes the listing description.
 
 **What moves through the session:** <!-- which fields, in what order -->
-query → parsed description, size, and max_price in parsed → results in search_results → first result in selected_item → suggestion in outfit_suggestion → caption in fit_card. If there are no results, error is set and the loop returns before creating an outfit or fit card.
+query → parsed description, size, and max_price in parsed → results in search_results → first result in selected_item → suggestion in outfit_suggestion → caption in fit_card. If there are no results, error is set and the run returns before creating an outfit or fit card.
 ---
 
 ## Sample Run
@@ -183,15 +182,15 @@ Nothing beats the effortless, everyday feel of well-worn denim paired with crisp
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked Copilot to help implement search_listings using the loader, filtering by price and size, and ranking matches by keyword overlap.
+- *What came back:* It suggested tokenizing the query and listing descriptions, filtering by the optional constraints, then sorting and limiting the results.
+- *What I changed:* I added the implementation and the missing re import. I tested it with graphic tee and a $30 price limit and saw it return listings instead of an empty list. 
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked Copilot to help fill in run_agent and handle the case where the search finds nothing.
+- *What came back:* It suggested using regex to extract the size and price, storing each result in the session, and returning early with an error message when the search list is empty. 
+- *What I changed:* I implemented that flow. My matching query test returned a listing, outfit suggestion, and fit card; I also added the empty-search branch before the outfit and fit-card calls. 
 
 <!-- ═══════════════════════ UNIT 4 — THE TEST ═══════════════════════
 
