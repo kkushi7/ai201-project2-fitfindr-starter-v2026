@@ -274,12 +274,48 @@ that produced it:
 **Happy path**
 
 ```
+[1] search_listings (via MCP)
+      in:  dict with keys: description, size, max_price
+      out: 8 items: Graphic Tee — 2003 Tour Bootleg Style, Y2K Baby Tee — Butterfly Print, Vintage Graphic Hoodie — Faded Black … +5 more
+[2] suggest_outfit
+      in:  dict with keys: new_item, wardrobe
+      out: Here are two wearable, grunge-inspired outfits using your new graphic tee and pieces from your wardrobe:  **Ou…
+[3] create_fit_card
+      in:  dict with keys: outfit, new_item
+      out: Scored this vintage-vibed Graphic Tee — 2003 Tour Bootleg Style on depop for just $24.0, and it’s the ultimate…
+
+  Found:    Graphic Tee — 2003 Tour Bootleg Style — $24.0 on depop
+
+  Outfit:   Here are two wearable, grunge-inspired outfits using your new graphic tee and pieces from your wardrobe:
+
+**Outfit 1: 90s Streetwear Grunge**
+*   **Top:** Graphic Tee (loose fit)
+*   **Bottoms:** Baggy straight-leg jeans (dark blue)
+*   **Outerwear:** Vintage black denim jacket (worn over the tee)
+*   **Shoes:** Chunky white sneakers
+*   **Accessories:** Black crossbody bag
+*   *Why it works:* Double denim with a boxy band tee hits that authentic 90s streetwear aesthetic. The chunky sneakers balance out the baggy jeans. 
+
+**Outfit 2: High-Contrast Edgy Casual**
+*   **Top:** Graphic Tee (tucked in)
+*   **Bottoms:** Wide-leg khaki trousers
+*   **Accessories:** Brown leather belt (cinched at the waist) + Black crossbody bag
+*   **Shoes:** Black combat boots
+*   *Why it works:* Tucking the relaxed tee into sharp, wide-leg khakis creates an effortless high-low mix. Groundingit with combat boots and the brown belt adds a gritty, intentional finish.
+
+  Fit card: Scored this vintage-vibed Graphic Tee — 2003 Tour Bootleg Style on depop for just $24.0, and it’s the ultimate piece for nailing 90s streetwear grunge. Paired it with baggy denim and a black jacket for that perfectly slouchy, double-denim look. It also transitions effortlessly into edgy casual when tucked into wide-leg khakis and grounded with combat boots.
 
 ```
 
 **Empty search**
 
 ```
+[1] search_listings (via MCP)
+      in:  dict with keys: description, size, max_price
+      out: [] (empty)
+      →    empty results; stopping
+
+  No matching listings. Try changing the description, size, or maximum price.
 
 ```
 
