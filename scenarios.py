@@ -47,6 +47,27 @@ SCENARIOS = [
     # For a fit-card criterion, you probably want the SAME query listed more
     # than once, or several different items, depending on what your criterion
     # actually says.
+    {
+        # Criterion 3: check that the selected item reaches suggest_outfit.
+        "name": "selected item passed to outfit",
+        "query": "faded grey band tee under $20",
+        "wardrobe": "example",
+        "criterion": 3,
+    },
+    {
+        # Criterion 4: five cards for the same matching item.
+        "name": "fit card includes price and platform",
+        "query": "90s track jacket in size M under $50",
+        "wardrobe": "example",
+        "criterion": 4,
+    },
+    {
+        # Criterion 5: results must respect the price ceiling.
+        "name": "search respects maximum price",
+        "query": "graphic tee under $30",
+        "wardrobe": "example",
+        "criterion": 5,
+    },
 ]
 
 WARDROBES = ("example", "empty")

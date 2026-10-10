@@ -212,20 +212,58 @@ Nothing beats the effortless, everyday feel of well-worn denim paired with crisp
 
 | Criterion | Target | Try 1 | Try 2 | Try 3 | Try 4 | Try 5 | Verdict |
 |---|---|---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |  |  |
+| 1. matching query completes | 4 of 5 | Pass | Pass  | Pass | Pass | Pass | Met |
+| 2. impossible query stops early | 5 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
+| empty wardrobe _(diagnostic — not one of your five)_ |  |   |   |   |   |   |  |
+| 3. selected item passed to outfit | 5 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
+| 4. fit card includes price and platform | 4 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
+| 5. search respects maximum price | 5 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
+
 
 **Real output from one try**, pasted as text, naming the file and function
 that produced it:
 
-```
+```  Produced by run_eval.py::run_once and calls agent.py::run_agent
 
-```
+Criterion 1:
+- stopped early: no
+- selected_item: Graphic Tee — 2003 Tour Bootleg Style ($24.0, depop)
+- search_results: 8
+[1] search_listings (via MCP)
+[2] suggest_outfit
+[3] create_fit_card
+Fit card: Stole this Graphic Tee — 2003 Tour Bootleg Style off depop for only $24.0, and it’s the ultimate grunge-streetwear find. I love dressing it down with dark baggy denim and combat boots for an effortless, heavy-metal vibe. It also looks super cool mixed with tailored khaki trousers and chunky white sneakers for a high-low look.
 
----
+```  Produced by run_eval.py::run_once and calls agent.py::run_agent
+
+Criterion 2:
+- stopped early: yes — No matching listings. Try changing the description, size, or maximum price.
+- selected_item: (none)
+- search_results: 0
+[1] search_listings (via MCP)
+      out: [] (empty)
+      → empty results; stopping
+
+```  Produced by run_eval.py::run_once and calls agent.py::run_agent
+
+Criterion 3:
+- selected_item: Vintage Band Tee — Faded Grey ($19.0, depop)
+[2] suggest_outfit
+      in: new_item_id=lst_033, wardrobe_item_count=10
+
+``` Produced by tools.py::create_fit_card and calls agent.py::run_agent
+
+Criterion 4:
+Channeling effortless 90s athletic energy with this vintage-inspired sporty look. I found the 90s Track Jacket — Navy/White Stripe listed on poshmark for just $45.0. It's the ultimate piece for mixing relaxed streetwear with tailored elements.
+
+``` Produced by tools.py::search_listings and calls agent.py::run_agent
+
+Criterion 5:
+- Query: graphic tee under $30
+- selected_item: Y2K Baby Tee — Butterfly Print ($18.0, depop)
+- search_results: 6
+[('lst_002', 18.0), ('lst_006', 24.0), ('lst_017', 15.0), ('lst_033', 19.0), ('lst_011', 27.0), ('lst_015', 26.0)]
+
 
 ## Verdicts and Diagnoses
 
