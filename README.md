@@ -192,6 +192,18 @@ Nothing beats the effortless, everyday feel of well-worn denim paired with crisp
 - *What came back:* It suggested using regex to extract the size and price, storing each result in the session, and returning early with an error message when the search list is empty. 
 - *What I changed:* I implemented that flow. My matching query test returned a listing, outfit suggestion, and fit card; I also added the empty-search branch before the outfit and fit-card calls. 
 
+**Moment 3**
+
+- *What I asked for:* I asked Copilot to replace the direct search_listings call in run_agent with an MCP client call while keeping the returned value in the same Python shape.
+- *What came back:* It pointed me to call_tool("search_listings", ...) and explained that the client unwraps the MCP response into the tool’s original list.
+- *What I changed:* I rewired the call and ran matching and no-match queries. The trace showed the search running via MCP; matching queries continued to the other tools, while empty results stopped the loop.
+
+**Moment 4**
+
+- *What I asked for:* I asked Copilot how to make fit cards reliably meet criterion 4’s sentence-count, price, and platform requirements.
+- *What came back:* It suggested validating the model’s caption and returning a two-sentence fallback when the caption misses those requirements.
+- *What I changed:* I added that check to create_fit_card and ran the after evaluation. Criterion 4 passed 5/5, but it also passed 5/5 before the change, so the run shows no measured improvement in pass rate.
+
 <!-- ═══════════════════════ UNIT 4 — THE TEST ═══════════════════════
 
      Don't fill these in during unit 3.
@@ -365,7 +377,7 @@ behaved differently afterwards. If the rewire didn't work, say exactly where it
 broke — the error text and the last thing that worked. That earns the point in
 full. -->
 
-
+I replaced the direct search_listings(...) call in agent.py::run_agent with call_tool("search_listings", {...}) from mcp_client.py. The MCP client unwraps the server response, so the agent still receives the same Python list of listing dictionaries. The rewire worked where the trace shows search_listings (via MCP), and both the matching query and empty-search path behaved as expected. The matching query continued to the outfit and fit-card tools; the empty search returned [] and stopped before calling them, so no error interrupted the flow.
 
 ---
 
@@ -408,7 +420,7 @@ The after-run passed criterion 4 in 5/5 tries, so the change did not cause a reg
      you did. "I ran out of time" is fine if it's true. Pretending nothing is
      left is not. -->
 
-
+No criteria were marked MISSED in the after-run, so there is no criterion-specific failure to fix. However, one evidence gap remains which is the report gives the number of search results, but not every result’s price, so it does not independently show that all five searches respected the maximum-price limit. I would record each result’s ID and price, then verify each is at or below the query limit. The evaluation also repeats one scenario per criterion, so it does not establish performance across varied queries.
 
 <!-- ═════════════════════════════════════════════════════════════════════
 
