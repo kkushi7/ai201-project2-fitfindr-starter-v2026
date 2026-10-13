@@ -246,7 +246,22 @@ def create_fit_card(outfit: str, new_item: dict) -> str:
         f"Outfit: {outfit}"
     )
 
-    return generate(
+    caption = generate(
         prompt,
         system="Write concise, specific outfit captions that sound like a real person.",
+    )
+
+    sentence_text = re.sub(r"\.{2,}", ".", caption.strip())
+    sentence_count = len(re.findall(r"[.!?](?=\s|$)", sentence_text))
+    caption_lower = caption.casefold()
+
+    has_price = f"${price}".casefold() in caption_lower
+    has_platform = str(platform).casefold() in caption_lower
+
+    if 2 <= sentence_count <= 4 and has_price and has_platform:
+        return caption
+
+    return (
+        f"{title} is listed on {platform} for ${price}. "
+        "It brings an easy, versatile feel to this outfit."
     )

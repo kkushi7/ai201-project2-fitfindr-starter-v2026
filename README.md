@@ -377,24 +377,27 @@ full. -->
      `python run_eval.py --label after` -->
 
 **What I changed:**
+I added a check in create_fit_card so it returns the model's caption only when it has 2-4 sentences and includes the listing's price and platform. Otherwise, it returns a two-sentnece fallback containing those details. 
 
 **Which failure it was meant to fix:**
+It was meant to prevent criterion 4 failures caused by model output not mentioning the price or platform, or returning the wrong number of sentences. The before-run already passed this criterion 5/5, so this addressed a potential failure rather than a failure observed in that run.
 
 ### Run Log — After
 
 | Criterion | Target | Try 1 | Try 2 | Try 3 | Try 4 | Try 5 | Verdict |
 |---|---|---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |  |  |
+| 1. matching query completes | 4 of 5 | Pass | Pass  | Pass | Pass | Pass | Met |
+| 2. impossible query stops early | 5 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
+| 3. selected item passed to outfit | 5 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
+| 4. fit card includes price and platform | 4 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
+| 5. search respects maximum price | 5 of 5 | Pass | Pass | Pass | Pass | Pass | Met |
 
 **Did it help, and how do I know:**
 
 <!-- If it made things worse, say that. Honestly reported, that earns full
      credit and is more interesting than one that worked. -->
 
+The after-run passed criterion 4 in 5/5 tries, so the change did not cause a regression and the target was met. Since the before-run also passed 5/5, the results do not show an improvement in pass rate. The report does not indicate whether the fallback was ever needed.
 
 
 ---
